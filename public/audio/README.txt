@@ -1,4 +1,4 @@
-# Audio Files for Outrun Racer
+# Audio Files for Race Game
 
 This directory should contain the following audio files for the game:
 

@@ -11,13 +11,12 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['vite.svg'],
-      manifest: {
-        name: 'Outrun Racer',
-        short_name: 'Outrun Racer',
-        description: 'Classic arcade racing game inspired by Outrun',
+      includeAssets: ['vite.svg'],      manifest: {
+        name: 'Race Game',
+        short_name: 'Race Game',
+        description: 'Classic arcade racing game',
         theme_color: '#242424',
-        background_color: '#242424',        display: 'standalone',
+        background_color: '#242424', display: 'standalone',
         start_url: '/race/',
         icons: [
           {

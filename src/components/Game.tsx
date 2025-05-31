@@ -141,11 +141,10 @@ export const Game: React.FC = () => {
                 style={{ touchAction: 'none' }}
                 tabIndex={0}
             />{/* Start Screen */}
-            {!isGameStarted && (
-                <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10">
+            {!isGameStarted && (                <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10">
                     <div className="text-center text-white max-w-2xl px-4">
-                        <h1 className="text-4xl font-bold mb-4 text-pink-500">OUTRUN RACER</h1>
-                        <p className="text-lg mb-8">Classic arcade racing experience</p>                        <button
+                        <h1 className="text-4xl font-bold mb-4 text-pink-500">RACE GAME</h1>
+                        <p className="text-lg mb-8">Classic arcade racing experience</p><button
                             onClick={startGame}
                             className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-lg text-xl mb-2"
                         >

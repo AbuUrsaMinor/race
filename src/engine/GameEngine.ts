@@ -19,7 +19,7 @@ export class GameEngine {
     private readonly CAMERA_HEIGHT = 1000;
     private readonly CAMERA_DEPTH = 1 / Math.tan((Math.PI / 180) * 30); // FOV 30 degrees
     private readonly DRAW_DISTANCE = 300;
-    
+
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d')!;
@@ -35,7 +35,7 @@ export class GameEngine {
         this.gameState = this.initializeGameState();
         this.setupCanvas();
         this.loadAssets();
-    }    private async loadAssets() {
+    } private async loadAssets() {
         // Load car sprite
         const carSprite = new Image();
         carSprite.src = '/race/images/car.png';
@@ -228,7 +228,7 @@ export class GameEngine {
         this.ctx.fillStyle = '#87CEEB'; // Sky blue
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
-    
+
     private renderSky() {
         // Enhanced gradient sky with time-based colors and atmospheric effects
         const timeOfDay = (this.gameState.distance * 0.001) % 24;
@@ -241,10 +241,10 @@ export class GameEngine {
             x: this.canvas.width * 0.8,
             y: this.canvas.height * 0.2
         };
-        
+
         // Stars for night sky
         let starsVisible = false;
-        
+
         // Cloud parameters
         let cloudColor = 'rgba(255, 255, 255, 0.8)';
         let cloudShadow = 'rgba(0, 0, 0, 0.1)';
@@ -255,7 +255,7 @@ export class GameEngine {
             skyColor2 = '#162447'; // Night blue in the middle
             skyColor3 = '#1D3E6E'; // Lighter night blue toward horizon
             horizonColor = '#2A5586'; // Dark blue horizon glow
-            
+
             // Moon properties
             sunMoonColor = '#F8F8FF';
             sunMoonGlow = 'rgba(255, 255, 255, 0.3)';
@@ -264,14 +264,14 @@ export class GameEngine {
                 x: this.canvas.width * (0.5 + Math.cos(timeOfDay / 24 * Math.PI * 2) * 0.4),
                 y: this.canvas.height * 0.15
             };
-            
+
             // Stars visible at night
             starsVisible = true;
-            
+
             // Night clouds
             cloudColor = 'rgba(40, 50, 80, 0.7)';
             cloudShadow = 'rgba(10, 10, 20, 0.5)';
-            
+
         } else if (timeOfDay < 7 || timeOfDay > 19) {
             // Dawn/Dusk
             if (timeOfDay < 7) {
@@ -287,12 +287,12 @@ export class GameEngine {
                 skyColor3 = '#FF8C42'; // Orange toward horizon
                 horizonColor = '#FFC15E'; // Light orange horizon glow
             }
-            
+
             // Sun/Moon position for dawn/dusk
-            const angle = timeOfDay < 7 ? 
-                          Math.PI - (timeOfDay / 7) * Math.PI : 
-                          (timeOfDay - 19) / 5 * Math.PI;
-                          
+            const angle = timeOfDay < 7 ?
+                Math.PI - (timeOfDay / 7) * Math.PI :
+                (timeOfDay - 19) / 5 * Math.PI;
+
             sunMoonColor = '#FF8C42';
             sunMoonGlow = 'rgba(255, 140, 66, 0.4)';
             sunMoonSize = 50;
@@ -300,18 +300,18 @@ export class GameEngine {
                 x: this.canvas.width * (0.5 + Math.cos(angle) * 0.45),
                 y: this.canvas.height * (0.4 + Math.sin(angle) * 0.3)
             };
-            
+
             // Twilight clouds
             cloudColor = 'rgba(255, 190, 170, 0.8)';
             cloudShadow = 'rgba(60, 30, 40, 0.3)';
-            
+
         } else {
             // Day
             skyColor1 = '#1E88E5'; // Bright blue at the top
             skyColor2 = '#64B5F6'; // Mid blue in the middle
             skyColor3 = '#90CAF9'; // Light blue toward horizon
             horizonColor = '#BBDEFB'; // Very light blue horizon glow
-            
+
             // Sun position during day
             const angle = Math.PI + (timeOfDay - 12) / 12 * Math.PI;
             sunMoonColor = '#FFFDE7';
@@ -321,7 +321,7 @@ export class GameEngine {
                 x: this.canvas.width * (0.5 + Math.cos(angle) * 0.4),
                 y: this.canvas.height * (0.3 + Math.sin(angle) * 0.2)
             };
-            
+
             // Day clouds
             cloudColor = 'rgba(255, 255, 255, 0.9)';
             cloudShadow = 'rgba(100, 100, 100, 0.2)';
@@ -333,15 +333,15 @@ export class GameEngine {
         gradient.addColorStop(0.4, skyColor2);
         gradient.addColorStop(0.8, skyColor3);
         gradient.addColorStop(1, horizonColor);
-        
+
         this.ctx.fillStyle = gradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height / 2);
-        
+
         // Draw stars at night
         if (starsVisible) {
             this.renderStars();
         }
-        
+
         // Draw sun/moon with glow effect
         if (sunMoonVisible) {
             // Outer glow
@@ -351,18 +351,18 @@ export class GameEngine {
             );
             glowGradient.addColorStop(0, sunMoonGlow);
             glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
+
             this.ctx.fillStyle = glowGradient;
             this.ctx.beginPath();
             this.ctx.arc(sunMoonPosition.x, sunMoonPosition.y, sunMoonSize * 2, 0, Math.PI * 2);
             this.ctx.fill();
-            
+
             // Sun/Moon body
             this.ctx.fillStyle = sunMoonColor;
             this.ctx.beginPath();
             this.ctx.arc(sunMoonPosition.x, sunMoonPosition.y, sunMoonSize, 0, Math.PI * 2);
             this.ctx.fill();
-            
+
             // If it's the moon, add some crater details
             if (timeOfDay < 5 || timeOfDay > 21) {
                 this.ctx.fillStyle = 'rgba(200, 200, 220, 0.4)';
@@ -371,55 +371,55 @@ export class GameEngine {
                     const craterX = sunMoonPosition.x + (Math.random() - 0.5) * sunMoonSize;
                     const craterY = sunMoonPosition.y + (Math.random() - 0.5) * sunMoonSize;
                     const craterSize = 2 + Math.random() * 6;
-                    
+
                     this.ctx.beginPath();
                     this.ctx.arc(craterX, craterY, craterSize, 0, Math.PI * 2);
                     this.ctx.fill();
                 }
             }
         }
-        
+
         // Draw clouds
         this.renderClouds(cloudColor, cloudShadow);
     }
-    
+
     private renderStars() {
         // Render stars in the night sky
         const starCount = 100;
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-        
+
         // Use a deterministic approach so stars don't flicker
         const seed = Math.floor(this.gameState.camera.z / 1000);
-        
+
         for (let i = 0; i < starCount; i++) {
             // Pseudorandom but stable positions
             const rng1 = Math.sin(i * 1.3 + seed) * 0.5 + 0.5;
             const rng2 = Math.cos(i * 2.7 + seed) * 0.5 + 0.5;
-            
+
             const x = rng1 * this.canvas.width;
             const y = rng2 * (this.canvas.height * 0.4);
             const size = 1 + Math.sin(i * 3.1) * 1;
-            
+
             // Twinkle effect
             const twinkle = 0.6 + Math.sin(i + this.gameState.distance * 0.01) * 0.4;
-            
+
             this.ctx.globalAlpha = twinkle;
             this.ctx.beginPath();
             this.ctx.arc(x, y, size, 0, Math.PI * 2);
             this.ctx.fill();
         }
-        
+
         this.ctx.globalAlpha = 1.0;
     }
-    
+
     private renderClouds(cloudColor: string, cloudShadow: string) {
         // Render clouds in the sky
         const cloudCount = 6;
         const cloudBaseY = this.canvas.height * 0.25;
-        
+
         // Use distance to create stable but moving clouds
         const seed = Math.floor(this.gameState.camera.z / 200);
-        
+
         for (let i = 0; i < cloudCount; i++) {
             // Pseudorandom but stable positions
             const rng1 = Math.sin(i * 1.5 + seed * 0.1) * 0.5 + 0.5;
@@ -427,26 +427,26 @@ export class GameEngine {
             const cloudY = cloudBaseY - i * 15;
             const cloudWidth = 100 + Math.sin(i * 2.7) * 50;
             const cloudHeight = 30 + Math.sin(i * 3.5) * 20;
-            
+
             // Cloud shadow
             this.ctx.fillStyle = cloudShadow;
             this.ctx.beginPath();
             this.ctx.ellipse(cloudX + 10, cloudY + 10, cloudWidth * 0.5, cloudHeight * 0.5, 0, 0, Math.PI * 2);
             this.ctx.fill();
-            
+
             // Main cloud
             this.ctx.fillStyle = cloudColor;
             this.ctx.beginPath();
             this.ctx.ellipse(cloudX, cloudY, cloudWidth * 0.5, cloudHeight * 0.5, 0, 0, Math.PI * 2);
             this.ctx.fill();
-            
+
             // Cloud detail - multiple overlapping circles
             const detailCount = 5;
             for (let j = 0; j < detailCount; j++) {
                 const detailX = cloudX + (Math.sin(j * 2.1) * cloudWidth * 0.3);
                 const detailY = cloudY + (Math.cos(j * 1.7) * cloudHeight * 0.3);
                 const detailSize = (0.3 + Math.sin(j * 3.1) * 0.2) * cloudWidth * 0.5;
-                
+
                 this.ctx.beginPath();
                 this.ctx.arc(detailX, detailY, detailSize, 0, Math.PI * 2);
                 this.ctx.fill();
@@ -521,7 +521,7 @@ export class GameEngine {
             default: return '#666';
         }
     }
-    
+
     private renderObject(type: string, x: number, y: number, size: number) {
         this.ctx.save();
         this.ctx.translate(x, y);
@@ -529,16 +529,16 @@ export class GameEngine {
         switch (type) {
             case 'tree':
                 // Enhanced tree with more realistic appearance
-                
+
                 // Tree trunk with gradient for depth
                 const trunkGradient = this.ctx.createLinearGradient(-size * 0.1, 0, size * 0.1, 0);
                 trunkGradient.addColorStop(0, '#5D4037');
                 trunkGradient.addColorStop(0.5, '#8B4513');
                 trunkGradient.addColorStop(1, '#5D4037');
-                
+
                 this.ctx.fillStyle = trunkGradient;
                 this.ctx.fillRect(-size * 0.1, 0, size * 0.2, size * 0.7);
-                
+
                 // Tree shadow
                 this.ctx.fillStyle = 'rgba(0,0,0,0.2)';
                 this.ctx.beginPath();
@@ -547,7 +547,7 @@ export class GameEngine {
 
                 // Multiple layers of foliage for depth
                 const foliageColors = ['#1B5E20', '#2E7D32', '#388E3C', '#43A047'];
-                
+
                 // Create pine tree shape with triangular layers
                 for (let i = 0; i < 3; i++) {
                     this.ctx.fillStyle = foliageColors[i % foliageColors.length];
@@ -561,45 +561,45 @@ export class GameEngine {
 
             case 'house':
                 // Enhanced house with windows, door, and more details
-                
+
                 // House shadow
                 this.ctx.fillStyle = 'rgba(0,0,0,0.2)';
                 this.ctx.beginPath();
                 this.ctx.ellipse(0, size * 0.2, size * 0.5, size * 0.1, 0, 0, Math.PI * 2);
                 this.ctx.fill();
-                
+
                 // House base with varying colors
                 const houseColor = Math.random() > 0.5 ? '#D7CCC8' : '#BCAAA4';
                 this.ctx.fillStyle = houseColor;
                 this.ctx.fillRect(-size * 0.4, -size * 0.3, size * 0.8, size * 0.5);
-                
+
                 // House roof with gradient
                 const roofGradient = this.ctx.createLinearGradient(0, -size * 0.7, 0, -size * 0.3);
                 roofGradient.addColorStop(0, '#BF360C');
                 roofGradient.addColorStop(1, '#E64A19');
-                
+
                 this.ctx.fillStyle = roofGradient;
                 this.ctx.beginPath();
                 this.ctx.moveTo(-size * 0.5, -size * 0.3);
                 this.ctx.lineTo(0, -size * 0.7);
                 this.ctx.lineTo(size * 0.5, -size * 0.3);
                 this.ctx.fill();
-                
+
                 // Windows
                 this.ctx.fillStyle = '#B3E5FC';
                 this.ctx.fillRect(-size * 0.3, -size * 0.2, size * 0.2, size * 0.2);
                 this.ctx.fillRect(size * 0.1, -size * 0.2, size * 0.2, size * 0.2);
-                
+
                 // Window frames
                 this.ctx.strokeStyle = '#546E7A';
                 this.ctx.lineWidth = size * 0.02;
                 this.ctx.strokeRect(-size * 0.3, -size * 0.2, size * 0.2, size * 0.2);
                 this.ctx.strokeRect(size * 0.1, -size * 0.2, size * 0.2, size * 0.2);
-                
+
                 // Door
                 this.ctx.fillStyle = '#5D4037';
                 this.ctx.fillRect(-size * 0.05, -size * 0.1, size * 0.1, size * 0.3);
-                
+
                 // Door knob
                 this.ctx.fillStyle = '#FFC107';
                 this.ctx.beginPath();
@@ -609,16 +609,16 @@ export class GameEngine {
 
             case 'bush':
                 // Enhanced bush with multiple layers for depth
-                
+
                 // Bush shadow
                 this.ctx.fillStyle = 'rgba(0,0,0,0.15)';
                 this.ctx.beginPath();
                 this.ctx.ellipse(0, size * 0.3, size * 0.3, size * 0.1, 0, 0, Math.PI * 2);
                 this.ctx.fill();
-                
+
                 // Multiple bush clusters
                 const bushColors = ['#2E7D32', '#388E3C', '#43A047', '#66BB6A'];
-                
+
                 for (let i = 0; i < 4; i++) {
                     this.ctx.fillStyle = bushColors[i % bushColors.length];
                     this.ctx.beginPath();
@@ -629,19 +629,19 @@ export class GameEngine {
                     this.ctx.fill();
                 }
                 break;
-                
+
             case 'sea':
                 // Sea with waves and reflections
-                
+
                 // Base water color gradient
                 const waterGradient = this.ctx.createLinearGradient(-size, 0, size, 0);
                 waterGradient.addColorStop(0, '#0277BD');
                 waterGradient.addColorStop(0.5, '#039BE5');
                 waterGradient.addColorStop(1, '#0277BD');
-                
+
                 this.ctx.fillStyle = waterGradient;
                 this.ctx.beginPath();
-                
+
                 // Create waves with sine function
                 this.ctx.moveTo(-size, 0);
                 for (let i = -size; i <= size; i += 10) {
@@ -653,7 +653,7 @@ export class GameEngine {
                 this.ctx.lineTo(-size, size * 0.5);
                 this.ctx.closePath();
                 this.ctx.fill();
-                
+
                 // Add wave highlights
                 this.ctx.strokeStyle = 'rgba(255,255,255,0.3)';
                 this.ctx.lineWidth = 2;
@@ -663,25 +663,25 @@ export class GameEngine {
                     const startY = Math.sin(i * 0.05) * size * 0.1;
                     const endX = i + 15;
                     const endY = Math.sin((i + 15) * 0.05) * size * 0.1;
-                    
+
                     this.ctx.moveTo(startX, startY);
                     this.ctx.lineTo(endX, endY);
                 }
                 this.ctx.stroke();
                 break;
-                
+
             case 'mountain':
                 // Enhanced mountain with detail and snow cap
                 const mountainGradient = this.ctx.createLinearGradient(0, -size, 0, 0);
                 mountainGradient.addColorStop(0, '#546E7A'); // Mountain top
                 mountainGradient.addColorStop(0.3, '#37474F'); // Upper part
                 mountainGradient.addColorStop(1, '#263238'); // Base
-                
+
                 // Mountain shape with rougher edges
                 this.ctx.fillStyle = mountainGradient;
                 this.ctx.beginPath();
                 this.ctx.moveTo(-size, 0);
-                
+
                 // Left side of mountain
                 for (let i = 0; i <= 5; i++) {
                     const xPoint = -size + i * size / 5;
@@ -690,10 +690,10 @@ export class GameEngine {
                     const yPoint = -size * heightFactor * 0.7 + noiseY;
                     this.ctx.lineTo(xPoint, yPoint);
                 }
-                
+
                 // Mountain peak
                 this.ctx.lineTo(0, -size * 0.8);
-                
+
                 // Right side of mountain
                 for (let i = 0; i <= 5; i++) {
                     const xPoint = size - i * size / 5;
@@ -702,11 +702,11 @@ export class GameEngine {
                     const yPoint = -size * heightFactor * 0.6 + noiseY;
                     this.ctx.lineTo(xPoint, yPoint);
                 }
-                
+
                 this.ctx.lineTo(size, 0);
                 this.ctx.closePath();
                 this.ctx.fill();
-                
+
                 // Snow cap on mountain top
                 this.ctx.fillStyle = '#ECEFF1';
                 this.ctx.beginPath();
@@ -718,19 +718,19 @@ export class GameEngine {
                 this.ctx.closePath();
                 this.ctx.fill();
                 break;
-                
+
             case 'grass':
                 // Grass tufts
                 const grassColors = ['#66BB6A', '#4CAF50', '#43A047', '#388E3C'];
-                
+
                 for (let i = 0; i < 12; i++) {
                     const offsetX = (Math.random() - 0.5) * size;
                     const height = size * (0.3 + Math.random() * 0.2);
-                    
+
                     this.ctx.fillStyle = grassColors[Math.floor(Math.random() * grassColors.length)];
                     this.ctx.beginPath();
                     this.ctx.moveTo(offsetX, 0);
-                    
+
                     // Curved blade of grass
                     const controlX1 = offsetX + (Math.random() - 0.5) * size * 0.3;
                     const controlY1 = -height * 0.6;
@@ -738,7 +738,7 @@ export class GameEngine {
                     const controlY2 = -height * 0.8;
                     const endX = offsetX + (Math.random() - 0.5) * size * 0.2;
                     const endY = -height;
-                    
+
                     this.ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, endX, endY);
                     this.ctx.bezierCurveTo(controlX2, controlY2, controlX1, controlY1, offsetX, 0);
                     this.ctx.fill();
@@ -748,7 +748,7 @@ export class GameEngine {
 
         this.ctx.restore();
     }
-    
+
     private renderRoad() {
         const baseSegment = Math.floor(this.gameState.camera.z / this.SEGMENT_LENGTH);
         // Store positions for adjacent segments to create a more connected road
@@ -799,11 +799,11 @@ export class GameEngine {
                 // Base road color with alternating pattern for depth perception
                 const roadColorLight = n % 2 === 0 ? '#888' : '#777';
                 const roadColorDark = n % 2 === 0 ? '#666' : '#555';
-                
+
                 gradient.addColorStop(0, roadColorDark);
                 gradient.addColorStop(0.5, roadColorLight);
                 gradient.addColorStop(1, roadColorDark);
-                
+
                 this.ctx.fillStyle = gradient;
                 this.ctx.fillRect(
                     curvedX - roadWidth / 2,
@@ -831,11 +831,11 @@ export class GameEngine {
                 // Add lanes (for multi-lane road)
                 const numLanes = 2;
                 const laneWidth = roadWidth / numLanes;
-                
+
                 // Draw lane markers
                 for (let lane = 1; lane < numLanes; lane++) {
                     const laneX = curvedX - roadWidth / 2 + lane * laneWidth;
-                    
+
                     if (n % 6 === 0) { // Dashed lane lines
                         this.ctx.fillStyle = '#fff';
                         this.ctx.fillRect(
@@ -844,15 +844,15 @@ export class GameEngine {
                             4 * scale,
                             segmentHeight * 0.6
                         );
-                    }                
+                    }
                 }
-                
+
                 // Store segment position for potential use with 3D effects
                 lastSegmentPositions.push({ x: curvedX, y: projectedY.y, width: roadWidth });
             }
         }
     }
-    
+
     private renderCar() {
         const carX = this.canvas.width / 2 + this.gameState.car.position.x * 100;
         const carY = this.canvas.height * 0.8;
@@ -931,7 +931,7 @@ export class GameEngine {
             this.ctx.fillRect(carX + carWidth / 2 - 6, carY + carHeight / 2 - 8, 4, 6);
         }
     }
-    
+
     private renderHUD() {
         // HUD Background
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
