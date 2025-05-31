@@ -90,25 +90,38 @@ export class GameEngine {
 
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-    }
-
-    private generateRoad(): RoadSegment[] {
+    }    private generateRoad(): RoadSegment[] {
         const road: RoadSegment[] = [];
         let y = 0;
+        
+        // Ensure we generate enough road segments
+        const segments = 1000;
+        
+        console.log(`Generating ${segments} road segments with segment length ${this.SEGMENT_LENGTH}`);
 
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < segments; i++) {
+            // Calculate curve based on position (sine waves for smooth curves)
+            const curve = Math.sin(i / 30) * 0.02 + Math.sin(i / 50) * 0.01;
+            
+            // Calculate world Y position (distance along the road)
+            const worldY = i * this.SEGMENT_LENGTH;
+            
+            // Add segment to road
             road.push({
-                curve: Math.sin(i / 30) * 0.02 + Math.sin(i / 50) * 0.01,
+                curve: curve,
                 y: y,
-                worldY: i * this.SEGMENT_LENGTH
+                worldY: worldY
             });
 
-            // Add some hills
+            // Add some hills periodically to make the terrain interesting
             if (i % 100 === 0) {
                 y += (Math.random() - 0.5) * 200;
             }
         }
 
+        console.log(`Road generation complete. First segment:`, road[0]);
+        console.log(`Last segment:`, road[road.length - 1]);
+        
         return road;
     }
 
@@ -202,12 +215,15 @@ export class GameEngine {
 
         // Update distance
         this.gameState.distance += car.speed * deltaTime;
-    }
-
-    private updateCamera() {
+    }    private updateCamera() {
         const car = this.gameState.car;
         this.gameState.camera.x = car.position.x;
         this.gameState.camera.z = this.gameState.distance;
+        
+        // Debug camera position
+        if (this.gameState.distance < 100) {
+            console.log(`Camera position updated: x=${this.gameState.camera.x}, z=${this.gameState.camera.z}`);
+        }
     }
 
     private updateScore() {
@@ -747,22 +763,51 @@ export class GameEngine {
         }
 
         this.ctx.restore();
-    }
-
-    private renderRoad() {
+    }    private renderRoad() {
+        // Make sure we have road segments to render
+        if (!this.gameState.road || this.gameState.road.length === 0) {
+            console.error("Road segments array is empty or undefined!");
+            return;
+        }
+        
         const baseSegment = Math.floor(this.gameState.camera.z / this.SEGMENT_LENGTH);
         // Store positions for adjacent segments to create a more connected road
         let lastSegmentPositions = [];
-
+        
+        // Log debug info for the first few segments
+        if (baseSegment < 10) {
+            console.log(`Rendering road at camera Z: ${this.gameState.camera.z}, base segment: ${baseSegment}`);
+        }        // Draw road segments from back to front to ensure proper layering
         for (let n = 0; n < this.DRAW_DISTANCE; n++) {
-            const segment = this.gameState.road[(baseSegment + n) % this.gameState.road.length];
+            const segmentIndex = (baseSegment + n) % this.gameState.road.length;
+            const segment = this.gameState.road[segmentIndex];
+            
+            if (!segment) {
+                console.error(`Invalid segment at index ${segmentIndex}`);
+                continue;
+            }
 
+            // Calculate world Z position (distance from camera)
+            const worldZ = segment.worldY - this.gameState.camera.z;
+            
+            // Skip segments that are behind the camera
+            if (worldZ <= 0) {
+                continue;
+            }
+            
+            // Project the segment into screen coordinates
             const projectedY = this.project3D(
                 0,
                 this.CAMERA_HEIGHT,
-                segment.worldY - this.gameState.camera.z
+                worldZ
             );
+            
+            // Debug first few segments
+            if (n < 5 && baseSegment < 10) {
+                console.log(`Segment ${n}, worldZ: ${worldZ}, projected: `, projectedY);
+            }
 
+            // Make sure z is positive for visibility
             if (projectedY.z > 0) {
                 const scale = this.CAMERA_DEPTH / projectedY.z;
                 const roadWidth = this.ROAD_WIDTH * scale;
@@ -794,11 +839,9 @@ export class GameEngine {
                 const gradient = this.ctx.createLinearGradient(
                     curvedX - roadWidth / 2, projectedY.y,
                     curvedX + roadWidth / 2, projectedY.y
-                );
-
-                // Base road color with alternating pattern for depth perception
-                const roadColorLight = n % 2 === 0 ? '#888' : '#777';
-                const roadColorDark = n % 2 === 0 ? '#666' : '#555';
+                );                // Make road colors more visible with a stronger contrast pattern
+                const roadColorLight = n % 2 === 0 ? '#aaa' : '#999';
+                const roadColorDark = n % 2 === 0 ? '#666' : '#444';
 
                 gradient.addColorStop(0, roadColorDark);
                 gradient.addColorStop(0.5, roadColorLight);
@@ -979,14 +1022,22 @@ export class GameEngine {
         this.ctx.beginPath();
         this.ctx.arc(meterX, meterY, meterRadius, Math.PI, speedAngle);
         this.ctx.stroke();
-    }
-
-    private project3D(x: number, y: number, z: number) {
-        const scale = this.CAMERA_DEPTH / (z + this.CAMERA_DEPTH);
+    }    private project3D(x: number, y: number, z: number) {
+        // Ensure positive z value to avoid division by zero or negative values
+        const safeZ = Math.max(0.1, z);
+        
+        // Calculate scale factor for projection
+        const scale = this.CAMERA_DEPTH / (safeZ + this.CAMERA_DEPTH);
+        
+        // Calculate the projected coordinates
+        const projectedX = this.canvas.width / 2 + (x - this.gameState.camera.x) * scale;
+        const projectedY = this.canvas.height / 2 - y * scale;
+        const projectedZ = safeZ + this.CAMERA_DEPTH;
+        
         return {
-            x: this.canvas.width / 2 + (x - this.gameState.camera.x) * scale,
-            y: this.canvas.height / 2 - y * scale,
-            z: z + this.CAMERA_DEPTH
+            x: projectedX,
+            y: projectedY,
+            z: projectedZ
         };
     }
 
