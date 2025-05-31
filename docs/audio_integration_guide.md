@@ -1,4 +1,4 @@
-# Audio Integration Guide for Outrun Racer
+# Audio Integration Guide for Race Game
 
 ## Required Sound Files
 

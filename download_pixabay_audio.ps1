@@ -1,9 +1,9 @@
-# Download Pixabay Audio Files for Outrun Racer
+# Download Pixabay Audio Files for Race Game
 #
 # This script will help you download audio files from Pixabay for your racing game
 # It will open web links to recommended files and guide you through the process
 
-Write-Host "===== Outrun Racer Audio Downloader =====" -ForegroundColor Cyan
+Write-Host "===== Race Game Audio Downloader =====" -ForegroundColor Cyan
 Write-Host "This script will help you download audio files from Pixabay."
 Write-Host "You will need to manually download each file from Pixabay and save it properly."
 Write-Host ""
@@ -192,5 +192,5 @@ if (Test-Path $testPage) {
     }
 }
 
-Write-Host "`nThank you for setting up the audio files for Outrun Racer!" -ForegroundColor Cyan
+Write-Host "`nThank you for setting up the audio files for Race Game!" -ForegroundColor Cyan
 Write-Host "You can always test your audio later by opening: public/test-audio.html"

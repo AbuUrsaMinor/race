@@ -1,6 +1,6 @@
-# Outrun Racer - Recommended Audio Files
+# Race Game - Recommended Audio Files
 
-This document provides direct links to recommended free audio files from Pixabay that work well with the Outrun Racer game. All these files are licensed under Pixabay's license, which allows for free use even in commercial projects.
+This document provides direct links to recommended free audio files from Pixabay that work well with the Race Game. All these files are licensed under Pixabay's license, which allows for free use even in commercial projects.
 
 ## Background Music
 

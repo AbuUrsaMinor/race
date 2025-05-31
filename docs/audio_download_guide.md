@@ -1,6 +1,6 @@
-# Outrun Racer Audio File Download Guide
+# Race Game Audio File Download Guide
 
-This guide will walk you through downloading the necessary audio files for the Outrun Racer game.
+This guide will walk you through downloading the necessary audio files for the Race Game.
 
 ## Quick Download Links
 

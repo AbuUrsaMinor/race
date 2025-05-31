@@ -11,7 +11,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['vite.svg'],      manifest: {
+      includeAssets: ['vite.svg'], manifest: {
         name: 'Race Game',
         short_name: 'Race Game',
         description: 'Classic arcade racing game',

@@ -1,6 +1,6 @@
-# Outrun Racer Audio Implementation
+# Race Game Audio Implementation
 
-This document summarizes the audio enhancements for the Outrun Racer game.
+This document summarizes the audio enhancements for the Race Game.
 
 ## Audio Integration Overview
 
@@ -45,7 +45,7 @@ Created tools to help with audio implementation:
 
 ## Technical Notes
 
-- The AudioManager supports both production paths (with /outrun-racer/ prefix) and development paths
+- The AudioManager supports both production paths (with /race/ prefix) and development paths
 - Volume control for both music and sound effects is implemented
 - Audio is properly handled through gain nodes for better mixing
 - The engine sound features pitch variation based on speed

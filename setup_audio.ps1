@@ -1,6 +1,6 @@
-# Outrun Racer Audio Setup Script
+# Race Game Audio Setup Script
 #
-# This script sets up the audio environment for the Outrun Racer game by:
+# This script sets up the audio environment for the Race Game by:
 # 1. Creating placeholder MP3 files
 # 2. Providing instructions for downloading real audio files
 # 3. Offering to test both placeholder and real audio files
@@ -14,8 +14,8 @@ function Write-ColorOutput {
     Write-Host $Text -ForegroundColor $Color
 }
 
-Write-ColorOutput "===== Outrun Racer Audio Setup =====" "Cyan"
-Write-ColorOutput "This script will help you prepare the audio files for the Outrun Racer game."
+Write-ColorOutput "===== Race Game Audio Setup =====" "Cyan"
+Write-ColorOutput "This script will help you prepare the audio files for the Race Game."
 Write-ColorOutput ""
 
 # Create audio directory if it doesn't exist

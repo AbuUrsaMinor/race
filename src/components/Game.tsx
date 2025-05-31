@@ -141,37 +141,37 @@ export const Game: React.FC = () => {
                 style={{ touchAction: 'none' }}
                 tabIndex={0}
             />{/* Start Screen */}
-            {!isGameStarted && (                <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10">
-                    <div className="text-center text-white max-w-2xl px-4">
-                        <h1 className="text-4xl font-bold mb-4 text-pink-500">RACE GAME</h1>
-                        <p className="text-lg mb-8">Classic arcade racing experience</p><button
-                            onClick={startGame}
-                            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-lg text-xl mb-2"
-                        >
-                            START GAME
-                        </button>
-                        <p className="text-sm text-gray-400 mb-8">or press Enter</p>
+            {!isGameStarted && (<div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10">
+                <div className="text-center text-white max-w-2xl px-4">
+                    <h1 className="text-4xl font-bold mb-4 text-pink-500">RACE GAME</h1>
+                    <p className="text-lg mb-8">Classic arcade racing experience</p><button
+                        onClick={startGame}
+                        className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-lg text-xl mb-2"
+                    >
+                        START GAME
+                    </button>
+                    <p className="text-sm text-gray-400 mb-8">or press Enter</p>
 
-                        {/* Controls Information */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
-                            <div>
-                                <h3 className="text-white font-semibold mb-2">Touch Controls (Mobile)</h3>
-                                <p>• Tap left/right sides to steer</p>
-                                <p>• Tap bottom to brake</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-semibold mb-2">Keyboard Controls (Desktop)</h3>
-                                <p>• Arrow Keys or A/D to steer</p>
-                                <p>• Space/Down Arrow/S to brake</p>
-                                <p>• P to pause</p>
-                            </div>
+                    {/* Controls Information */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
+                        <div>
+                            <h3 className="text-white font-semibold mb-2">Touch Controls (Mobile)</h3>
+                            <p>• Tap left/right sides to steer</p>
+                            <p>• Tap bottom to brake</p>
                         </div>
-
-                        <div className="mt-8 text-sm text-gray-400">
-                            <p>Rotate your device to landscape mode for the best mobile experience</p>
+                        <div>
+                            <h3 className="text-white font-semibold mb-2">Keyboard Controls (Desktop)</h3>
+                            <p>• Arrow Keys or A/D to steer</p>
+                            <p>• Space/Down Arrow/S to brake</p>
+                            <p>• P to pause</p>
                         </div>
                     </div>
+
+                    <div className="mt-8 text-sm text-gray-400">
+                        <p>Rotate your device to landscape mode for the best mobile experience</p>
+                    </div>
                 </div>
+            </div>
             )}
 
             {/* Touch Controls */}
