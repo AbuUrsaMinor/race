@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="110" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+    <!-- Car body base - red race car inspired by Ferrari Testarossa (Outrun style) -->
+    <path d="M40,80 L40,50 C40,40 60,30 100,30 C140,30 160,40 160,50 L160,80 L40,80 Z" fill="#e62e2e" stroke="#000" stroke-width="2"/>
+    <!-- Front of the car -->
+    <path d="M40,80 L30,100 L170,100 L160,80 Z" fill="#e62e2e" stroke="#000" stroke-width="2"/>
+    <!-- Bumper -->
+    <path d="M35,90 L45,70 L155,70 L165,90 Z" fill="#b71c1c" stroke="#000" stroke-width="1"/>
+    <path d="M40,77 L40,70 L160,70 L160,77 Z" fill="#b71c1c" stroke="#000" stroke-width="1"/>
+    <!-- Car top/roof -->
+    <path d="M60,50 L80,35 L120,35 L140,50 Z" fill="#e62e2e" stroke="#000" stroke-width="2"/>
+    <!-- Windows -->
+    <path d="M65,50 L82,38 L118,38 L135,50 Z" fill="#99ccff" stroke="#000" stroke-width="1"/>
+    <path d="M82,38 L118,38 L118,50 L82,50 Z" fill="#004080" stroke="#000" stroke-width="1" opacity="0.5"/>
+    <!-- Headlights -->
+    <ellipse cx="50" cy="60" rx="6" ry="6" fill="#ffffcc" stroke="#000" stroke-width="1"/>
+    <ellipse cx="150" cy="60" rx="6" ry="6" fill="#ffffcc" stroke="#000" stroke-width="1"/>
+    <!-- Taillights -->
+    <rect x="38" y="75" width="8" height="4" fill="#ff3333" stroke="#000" stroke-width="1"/>
+    <rect x="154" y="75" width="8" height="4" fill="#ff3333" stroke="#000" stroke-width="1"/>
+    <!-- Wheels -->
+    <ellipse cx="60" cy="100" rx="12" ry="12" fill="#333" stroke="#000" stroke-width="2"/>
+    <ellipse cx="60" cy="100" rx="6" ry="6" fill="#666" stroke="#000" stroke-width="1"/>
+    <ellipse cx="140" cy="100" rx="12" ry="12" fill="#333" stroke="#000" stroke-width="2"/>
+    <ellipse cx="140" cy="100" rx="6" ry="6" fill="#666" stroke="#000" stroke-width="1"/>
+    <!-- Car details -->
+    <path d="M85,45 L115,45 L115,55 L85,55 Z" fill="#e62e2e" stroke="#000" stroke-width="1"/>
+    <line x1="100" y1="35" x2="100" y2="70" stroke="#b71c1c" stroke-width="1"/>
+    <!-- Car racing stripes -->
+    <path d="M90,30 L90,80 L85,80 L85,30 Z" fill="#fff" stroke="none"/>
+    <path d="M115,30 L115,80 L110,80 L110,30 Z" fill="#fff" stroke="none"/>
+    <!-- Car shine/highlight -->
+    <path d="M60,40 C80,35 120,35 140,40" fill="none" stroke="#fff" stroke-width="3" opacity="0.5"/>
+    <!-- Car shadow -->
+    <ellipse cx="100" cy="105" rx="70" ry="5" fill="#000" opacity="0.3"/>
+</svg>
