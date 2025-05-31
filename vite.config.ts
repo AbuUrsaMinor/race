@@ -5,7 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/outrun-racer/', // Set base for GitHub Pages deployment
+  base: '/race/', // Set base for GitHub Pages deployment
   plugins: [
     react(),
     tailwindcss(),
@@ -17,9 +17,8 @@ export default defineConfig({
         short_name: 'Outrun Racer',
         description: 'Classic arcade racing game inspired by Outrun',
         theme_color: '#242424',
-        background_color: '#242424',
-        display: 'standalone',
-        start_url: '/outrun-racer/',
+        background_color: '#242424',        display: 'standalone',
+        start_url: '/race/',
         icons: [
           {
             src: 'vite.svg',

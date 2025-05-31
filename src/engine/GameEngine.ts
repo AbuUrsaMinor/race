@@ -35,12 +35,10 @@ export class GameEngine {
         this.gameState = this.initializeGameState();
         this.setupCanvas();
         this.loadAssets();
-    }
-
-    private async loadAssets() {
+    }    private async loadAssets() {
         // Load car sprite
         const carSprite = new Image();
-        carSprite.src = '/outrun-racer/images/car.png';
+        carSprite.src = '/race/images/car.png';
 
         carSprite.onload = () => {
             this.gameState.car.sprite = carSprite;

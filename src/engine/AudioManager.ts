@@ -7,14 +7,12 @@ export class AudioManager {
     private backgroundMusic: AudioBufferSourceNode | null = null;
     // Removed unused variable: // Removed unused variable: // Removed unused variable: isInitialized
     private isSoundsGenerated = false;
-    private isSoundsLoading = false;
-
-    // Production paths (deployed on GitHub Pages)
+    private isSoundsLoading = false;    // Production paths (deployed on GitHub Pages)
     private prodAudioFiles = {
-        music: '/outrun-racer/audio/music.mp3',
-        engine: '/outrun-racer/audio/engine.mp3',
-        brake: '/outrun-racer/audio/brake.mp3',
-        traffic: '/outrun-racer/audio/traffic.mp3',
+        music: '/race/audio/music.mp3',
+        engine: '/race/audio/engine.mp3',
+        brake: '/race/audio/brake.mp3',
+        traffic: '/race/audio/traffic.mp3',
     };
 
     // Local development paths
