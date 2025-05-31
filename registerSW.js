@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/outrun-racer/sw.js', { scope: '/outrun-racer/' })})}
