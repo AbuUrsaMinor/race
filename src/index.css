@@ -15,22 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -41,7 +25,7 @@ body {
     color: #747bff;
   }
 
-  button:not([class*="bg-transparent"]) {
+  button {
     background-color: #f9f9f9;
   }
 }

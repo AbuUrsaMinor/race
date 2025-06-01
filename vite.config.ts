@@ -11,12 +11,12 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['vite.svg'],      manifest: {
+      includeAssets: ['vite.svg'], manifest: {
         name: 'Race',
         short_name: 'Race',
         description: 'An arcade racing game',
         theme_color: '#242424',
-        background_color: '#242424',        display: 'standalone',
+        background_color: '#242424', display: 'standalone',
         start_url: '/race/',
         icons: [
           {
