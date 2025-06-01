@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
+# Race - An Arcade Racing Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an arcade-style racing game built with React, TypeScript, and Vite, utilizing Tailwind CSS v4 and configured as a PWA for offline use.
 
 Currently, two official plugins are available:
 
